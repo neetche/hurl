@@ -9,7 +9,7 @@ We like to discuss things before implementation and want to be sure that:
 
 - any new features is coherent with Hurl core values,
 - you don't waste time on a feature that will not fit Hurl,
-- all options have been considered if possible
+- all options have been considered if possible.
 
 ## Pull Requests
 
@@ -19,8 +19,8 @@ Hurl git history is linear, so we ask to rebase your PR before final merge.
 
 ## Hurl Core Values
 
-- Hurl is a first class citizen CLI tool,
-- Hurl is a cherry on the top of curl. What you can do we curl, you could do it with Hurl,
+- Hurl is a first class citizen CLI tool, fast and reliable,
+- Hurl is a cherry on the top of curl. What you can do with curl, you could do it with Hurl,
 - Hurl file format is text plain, loosely based on HTTP,
 - Hurl is multiplatform, working on Linux, macOS, Windows.
 
@@ -31,7 +31,7 @@ Linux, macOS, Windows and we support a narrow set of packet manager. [More would
 - IDE Support: everything from color syntax (in VSCode, Vim, IntelliJ, TextMate etc...) would be a good idea. An 
 integrated way to run Hurl file would be cool also, 
 - [Documentation] is a never finished work and could be always improve. Don't hesitate to clarify, fix typos etc...
-
+- Report bugs: if possible some simple repro steps with the Hurl version, name of the platform etc...
 
 
 
