@@ -103,8 +103,7 @@ jobs:
         New-Item -ItemType Directory -Name .\target\win-package
         Get-ChildItem -Path '.\target\release' -Recurse -Include *.dll -File | Copy-Item -Destination '.\target\win-package'
         Get-ChildItem -Path '.\target\release' -Recurse -Exclude hurl.exe -Include hurl*.exe -File | Copy-Item -Destination '.\target\win-package'
-        & 'C:\Program Files (x86)\Resource Hacker\Resourcehacker.exe' -open .\target\release\hurl.exe -save .\target\win-package\hurl.exe -action addskip -res .\ci\windows\logo.ico -mask ICONGROUP,MAINICON --log resourcehacker.log
-        type resourcehacker.log
+        & 'C:\Program Files (x86)\Resource Hacker\Resourcehacker.exe' -open .\target\release\hurl.exe -save .\target\win-package\hurl.exe -action addoverwrite -res .\ci\windows\logo.ico -mask ICONGROUP,MAINICON --log CONSOLE
         Get-ChildItem '.\target\win-package'
         ((.\target\win-package\hurl.exe --version | select -first 1) -Split " ")[1] > .\target\win-package\version.txt
         Get-ChildItem .\target\win-package
