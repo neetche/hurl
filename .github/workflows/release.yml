@@ -105,8 +105,8 @@ jobs:
         Get-Content C:\ProgramData\chocolatey\bin\resourcehacker.exe
         Get-Content .\target\release\hurl.exe 
         Get-Content .\ci\windows\logo.ico
-        C:\ProgramData\chocolatey\bin\resourcehacker.exe -open .\target\release\hurl.exe -save .\target\win-package\hurl.exe -action addskip -res .\ci\windows\logo.ico -mask ICONGROUP,MAINICON
-        $?
+        C:\ProgramData\chocolatey\bin\resourcehacker.exe -open .\target\release\hurl.exe -save .\target\win-package\hurl.exe -action addskip -res .\ci\windows\logo.ico -mask ICONGROUP,MAINICON --log resourcehacker.log
+        type resourcehacker.log
         Get-ChildItem '.\target\win-package'
         ((.\target\win-package\hurl.exe --version | select -first 1) -Split " ")[1] > .\target\win-package\version.txt
         Get-ChildItem .\target\win-package
