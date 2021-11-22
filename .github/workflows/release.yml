@@ -89,7 +89,13 @@ jobs:
     - name: Build
       run: |
         # chocolatey prerequisites
-        choco install --confirm --no-progress resourcehacker.portable
+        choco install --confirm --no-progress reshack
+        Get-ChildItem $Env:ProgramData
+        Get-ChildItem $Env:ProgramFiles
+        Get-ChildItem $Env:ProgramFiles(x86)
+        Get-ChildItem $Env:ProgramW6432
+        Get-ChildItem -Path 'C:\' -Recurse -File -Filter 'ResourceHacker.exe'
+        
         # vcpkg build prequisites
         (Get-Command vcpkg).Path
         Expand-Archive -PassThru -Force -LiteralPath .\ci\windows\vcpkg_installed.zip -DestinationPath C:\vcpkg\
