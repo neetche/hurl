@@ -90,7 +90,6 @@ jobs:
       run: |
         # chocolatey prerequisites
         choco install --confirm --no-progress resourcehacker.portable 
-        refreshenv
         # vcpkg build prequisites
         (Get-Command vcpkg).Path
         Expand-Archive -PassThru -Force -LiteralPath .\ci\windows\vcpkg_installed.zip -DestinationPath C:\vcpkg\
@@ -104,7 +103,9 @@ jobs:
         New-Item -ItemType Directory -Name .\target\win-package
         Get-ChildItem -Path '.\target\release' -Recurse -Include *.dll -File | Copy-Item -Destination '.\target\win-package'
         Get-ChildItem -Path '.\target\release' -Recurse -Exclude hurl.exe -Include hurl*.exe -File | Copy-Item -Destination '.\target\win-package'
+        Get-ChildItem '.\target\win-package'
         resourcehacker.exe -open '.\target\release\hurl.exe' -save '.\target\\win-package\hurl.exe' -action addskip -res c:\hurl\ci\windows\logo.ico -mask ICONGROUP,MAINICON
+        Get-ChildItem '.\target\win-package'
         ((.\target\win-package\hurl.exe --version | select -first 1) -Split " ")[1] > .\target\win-package\version.txt
         Get-ChildItem .\target\win-package
         Get-Content .\target\win-package\version.txt
