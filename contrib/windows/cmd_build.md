@@ -19,7 +19,7 @@ You just have to follow each chapter sequentially until you get a windows instal
 
 ```cmd
 cd c:\
-choco install --confirm --no-progress curl unxUtils git 7zip nsis python3 winlibs-llvm-free
+choco install --confirm --no-progress curl unxUtils resourcehacker.portable git 7zip nsis python3 winlibs-llvm-free
 refreshenv
 %ChocolateyInstall%\bin\curl --output "c:\rustup-init.exe" "https://static.rust-lang.org/rustup/dist/i686-pc-windows-gnu/rustup-init.exe"
 c:\rustup-init.exe -y  --default-toolchain stable-x86_64-pc-windows-msvc
@@ -54,7 +54,8 @@ cd c:\hurl
 cargo build --release --verbose
 mkdir c:\hurl\target\win-package
 %ChocolateyInstall%\bin\find c:\hurl\target\release -name "*.dll" | xargs -i cp -frp {} c:\hurl\target\win-package
-%ChocolateyInstall%\bin\find c:\hurl\target\release -maxdepth 1 -name "hurl*.exe" | xargs -i cp -frp {} c:\hurl\target\win-package
+%ChocolateyInstall%\bin\find c:\hurl\target\release -maxdepth 1 -name "hurl*.exe" | grep -v "hurl.exe" | xargs -i cp -frp {} c:\hurl\target\win-package
+resourcehacker.exe -open c:\hurl\target\release\hurl.exe -save c:\hurl\target\win-package\hurl.exe -action addskip -res c:\hurl\ci\windows\logo.ico -mask ICONGROUP,MAINICON
 setx /M PATH "%PATH%;c:\hurl\target\win-package"
 refreshenv
 ```
@@ -100,7 +101,7 @@ cd c:\hurl\integration
 ## Generate version.txt file
 
 ```cmd
-hurl.exe --version | cut -d" " -f2 > c:\hurl\target\win-package\version.txt
+hurl.exe --version | head -1 | cut -d" " -f2 > c:\hurl\target\win-package\version.txt
 ```
 
 ## Create a simple zip package

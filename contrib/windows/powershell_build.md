@@ -19,7 +19,7 @@ You just have to follow each chapter sequentially until you get a windows instal
 
 ```powershell
 cd c:\
-choco install --confirm --no-progress git nsis python3 winlibs-llvm-free nsis
+choco install --confirm --no-progress resourcehacker.portable git nsis python3 winlibs-llvm-free nsis
 Invoke-WebRequest -UseBasicParsing -OutFile "c:\rustup-init.exe" "https://static.rust-lang.org/rustup/dist/i686-pc-windows-gnu/rustup-init.exe"
 c:\rustup-init.exe -y  --default-toolchain stable-x86_64-pc-windows-msvc
 Set-ItemProperty -Path HKCU:\Environment -Name RUST_BACKTRACE -Value "full"
@@ -56,7 +56,8 @@ cd c:\hurl
 cargo build --release --verbose
 New-Item -ItemType "Directory" -Path "c:\hurl\target" -Name "win-package"
 Get-ChildItem -Path "c:\hurl\target\release" -Recurse -Include *.dll -File | Copy-Item -Destination "c:\hurl\target\win-package"
-Get-ChildItem -Path "c:\hurl\target\release" -Recurse -Include hurl*.exe -File | Copy-Item -Destination "c:\hurl\target\win-package"
+Get-ChildItem -Path "c:\hurl\target\release" -Recurse -Exclude hurl.exe -Include hurl*.exe -File | Copy-Item -Destination "c:\hurl\target\win-package"
+resourcehacker.exe -open c:\hurl\target\release\hurl.exe -save c:\hurl\target\win-package\hurl.exe -action addskip -res c:\hurl\ci\windows\logo.ico -mask ICONGROUP,MAINICON
 ((c:\hurl\target\win-package\hurl.exe --version) -Split " ")[1] > c:\hurl\target\win-package\version.txt
 $oldpath = Get-ItemProperty -Path HKCU:\Environment -Name Path
 $newpath = $oldpath.Path += ";c:\hurl\target\win-package"
@@ -110,7 +111,7 @@ cd c:\hurl\integration
 ## Generate version.txt file
 
 ```powershell
-((c:\hurl\target\win-package\hurl.exe --version) -Split " ")[1] > c:\hurl\target\win-package\version.txt
+((c:\hurl\target\win-package\hurl.exe --version | select -first 1) -Split " ")[1] > c:\hurl\target\win-package\version.txt
 ```
 
 ## Create a simple zip package
